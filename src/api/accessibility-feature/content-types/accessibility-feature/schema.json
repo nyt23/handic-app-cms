@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "accessibility_features",
+  "info": {
+    "singularName": "accessibility-feature",
+    "pluralName": "accessibility-features",
+    "displayName": "Accessibility Feature"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}
