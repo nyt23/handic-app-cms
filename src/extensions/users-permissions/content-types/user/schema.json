@@ -83,11 +83,28 @@
       "relation": "oneToMany",
       "target": "api::ticket.ticket"
     },
-    "ticket": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::ticket.ticket",
-      "inversedBy": "users_permissions_users"
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "birthDate": {
+      "type": "date",
+      "required": true
+    },
+    "language": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "English",
+        "German",
+        "French",
+        "Spanish",
+        "Italian"
+      ]
     }
   }
 }

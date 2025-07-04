@@ -37,13 +37,18 @@
     "capacity": {
       "type": "integer"
     },
-    "size": {
-      "type": "decimal"
-    },
     "accessibility_features": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::accessibility-feature.accessibility-feature"
+    },
+    "size": {
+      "type": "string"
+    },
+    "Address": {
+      "type": "component",
+      "component": "custom-component.address",
+      "repeatable": false
     }
   }
 }
