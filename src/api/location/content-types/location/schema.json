@@ -45,10 +45,15 @@
     "size": {
       "type": "string"
     },
-    "Address": {
+    "address": {
       "type": "component",
       "component": "custom-component.address",
       "repeatable": false
+    },
+    "openingHours": {
+      "type": "component",
+      "component": "custom-component.opening-hours",
+      "repeatable": true
     }
   }
 }

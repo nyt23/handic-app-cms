@@ -39,7 +39,7 @@
           "localized": true
         }
       },
-      "required": true
+      "required": false
     },
     "seat": {
       "type": "string",
@@ -48,7 +48,7 @@
           "localized": true
         }
       },
-      "required": true
+      "required": false
     },
     "refundPolicy": {
       "type": "text",
@@ -57,7 +57,7 @@
           "localized": true
         }
       },
-      "required": true
+      "required": false
     },
     "ticketStatus": {
       "type": "enumeration",

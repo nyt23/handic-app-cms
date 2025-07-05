@@ -692,7 +692,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::accessibility-feature.accessibility-feature'
     >;
-    Address: Schema.Attribute.Component<'custom-component.address', false>;
+    address: Schema.Attribute.Component<'custom-component.address', false>;
     capacity: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -710,6 +710,10 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
       true
     >;
     name: Schema.Attribute.String & Schema.Attribute.Required;
+    openingHours: Schema.Attribute.Component<
+      'custom-component.opening-hours',
+      true
+    >;
     publishedAt: Schema.Attribute.DateTime;
     size: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -735,6 +739,15 @@ export interface ApiOrganizerOrganizer extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    contactData: Schema.Attribute.Component<
+      'custom-component.contact-data',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -821,14 +834,12 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
       }>;
     publishedAt: Schema.Attribute.DateTime;
     refundPolicy: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
     seat: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -873,7 +884,6 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     zone: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
