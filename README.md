@@ -1,61 +1,55 @@
-# 🚀 Getting started with Strapi
+# HandicApp CMS 🦽
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+A comprehensive Content Management System for accessibility-focused events and services, built with **Strapi** (backend) and **Next.js** (frontend).
 
-### `develop`
+## Overview
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+HandicApp CMS is designed to help organizers and administrators manage accessible events, locations, and services for people with disabilities. The platform provides tools for managing events, locations, accessibility features, disability cards, companions, and more.
 
+
+## How to Start
+
+### Prerequisites
+
+- **Node.js**: Version 18.0.0 or higher (up to 22.x.x)
+- **npm**: Version 6.0.0 or higher
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd handic-app-cms
+   ```
+
+2. **Install all dependencies**
+   ```bash
+   npm run install:all
+   ```
+   
+   This will install dependencies for:
+   - Root project (concurrently for running both services)
+   - Backend (Strapi CMS)
+   - Frontend (Next.js)
+
+### Running the Application
+
+#### Run Both Services Together
+```bash
+npm run dev
 ```
-npm run develop
-# or
-yarn develop
-```
 
-### `start`
+This will start both the backend and frontend simultaneously:
+- **Backend (Strapi)**: http://localhost:1337
+- **Frontend (Next.js)**: http://localhost:3000
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
 
-```
-npm run start
-# or
-yarn start
-```
+## Strapi Admin Access
 
-### `build`
+### Admin Credentials
 
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
+Credentials:
 
-```
-npm run build
-# or
-yarn build
-```
-
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
-
-```
-yarn strapi deploy
-```
-
-## 📚 Learn more
-
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
-
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
-
-## ✨ Community
-
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
-
----
-
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+- **Email**: nyt.young11@gmail.com
+- **Password**: sUcmok-paxbu7-dacwiz
+- **First Name**: Tingting
