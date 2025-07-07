@@ -47,7 +47,6 @@ const translations = {
 
     // Events
     'events.title': 'Events',
-    'events.description': 'Find accessible events near you',
     'events.capacity': 'Capacity',
     'events.type': 'Type',
     'events.languages': 'Languages',
@@ -149,7 +148,6 @@ const translations = {
 
     // Events
     'events.title': 'Veranstaltungen',
-    'events.description': 'Finden Sie barrierefreie Veranstaltungen in Ihrer Nähe',
     'events.capacity': 'Kapazität',
     'events.type': 'Typ',
     'events.languages': 'Sprachen',

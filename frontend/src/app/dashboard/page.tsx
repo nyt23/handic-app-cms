@@ -16,7 +16,6 @@ import {
   Menu, 
   X,
   User,
-  Heart,
   MapPin,
   Clock
 } from 'lucide-react';
@@ -60,22 +59,7 @@ export default function DashboardPage() {
     }
   };
 
-  const getEventTypeIcon = (type: string) => {
-    switch (type) {
-      case 'concert':
-        return <Heart className="h-5 w-5" />;
-      case 'workshop':
-        return <Users className="h-5 w-5" />;
-      case 'exhibition':
-        return <FileText className="h-5 w-5" />;
-      case 'theater':
-        return <Calendar className="h-5 w-5" />;
-      case 'festival':
-        return <Heart className="h-5 w-5" />;
-      default:
-        return <Calendar className="h-5 w-5" />;
-    }
-  };
+
 
   if (!user) {
     return null;
@@ -245,7 +229,6 @@ export default function DashboardPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-8">
               <h2 className="text-lg font-medium text-gray-900">{t('dashboard.events')}</h2>
-              <p className="mt-1 text-sm text-gray-500">{t('events.description')}</p>
             </div>
 
             {loading ? (
@@ -277,8 +260,7 @@ export default function DashboardPage() {
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center">
-                          {getEventTypeIcon(event.eventType)}
-                          <span className="ml-2 text-sm font-medium text-gray-500 capitalize">
+                          <span className="text-sm font-medium text-gray-500 capitalize">
                             {event.eventType}
                           </span>
                         </div>
@@ -286,13 +268,13 @@ export default function DashboardPage() {
                           {event.maxCapacity} {t('events.capacity')}
                         </span>
                       </div>
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">{event.name}</h3>
+                      <h3 className="text-sm sm:text-base md:text-lg font-medium text-gray-900 mb-2 break-words leading-tight hyphens-auto overflow-hidden">{event.name}</h3>
                       {event.description && (
                         <p className="text-sm text-gray-600 mb-4 line-clamp-2">
                           {event.description}
                         </p>
                       )}
-                      <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                      <div className="flex flex-col space-y-2 text-sm text-gray-500 mb-4">
                         <div className="flex items-center">
                           <Globe className="h-4 w-4 mr-1" />
                           {event.languages}
@@ -303,13 +285,13 @@ export default function DashboardPage() {
                             {new Date(event.startTime).toLocaleDateString()}
                           </div>
                         )}
+                        {event.locations && event.locations.length > 0 && (
+                          <div className="flex items-center">
+                            <MapPin className="h-4 w-4 mr-1" />
+                            {event.locations[0].name}
+                          </div>
+                        )}
                       </div>
-                      {event.locations && event.locations.length > 0 && (
-                        <div className="flex items-center text-sm text-gray-500 mb-4">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          {event.locations[0].name}
-                        </div>
-                      )}
                       <div className="flex space-x-2">
                         <button 
                           onClick={() => router.push(`/dashboard/events/${event.id}`)}

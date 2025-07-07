@@ -10,7 +10,6 @@ import { toast } from 'react-hot-toast';
 import { 
   Calendar, 
   Users, 
-  FileText, 
   LogOut, 
   Globe, 
   Menu, 
@@ -28,7 +27,8 @@ import {
   Map,
   Video,
   Image,
-  File
+  File,
+  ZoomIn
 } from 'lucide-react';
 
 export default function EventDetailsPage() {
@@ -36,6 +36,7 @@ export default function EventDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+  const [selectedMedia, setSelectedMedia] = useState<any>(null);
   const { user, logout } = useAuth();
   const { t, locale, setLocale } = useLanguage();
   const router = useRouter();
@@ -76,22 +77,7 @@ export default function EventDetailsPage() {
     }
   };
 
-  const getEventTypeIcon = (type: string) => {
-    switch (type) {
-      case 'concert':
-        return <Heart className="h-5 w-5" />;
-      case 'workshop':
-        return <Users className="h-5 w-5" />;
-      case 'exhibition':
-        return <FileText className="h-5 w-5" />;
-      case 'theater':
-        return <Calendar className="h-5 w-5" />;
-      case 'festival':
-        return <Heart className="h-5 w-5" />;
-      default:
-        return <Calendar className="h-5 w-5" />;
-    }
-  };
+
 
   const getMediaIcon = (mediaType: string) => {
     switch (mediaType) {
@@ -284,7 +270,7 @@ export default function EventDetailsPage() {
                 <ArrowLeft className="h-5 w-5 mr-2" />
                 {t('events.backToEvents')}
               </button>
-              <h1 className="text-2xl font-semibold text-gray-900">{event.name}</h1>
+              <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 break-words">{event.name}</h1>
             </div>
             <div className="flex items-center gap-x-4 lg:gap-x-6">
               <div className="flex items-center space-x-2">
@@ -303,20 +289,25 @@ export default function EventDetailsPage() {
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-8">
               {event.media && event.media.length > 0 && (
                 <div className="relative h-64 md:h-96">
-                  <img
-                    src={`http://localhost:1337${event.media[0].url}`}
-                    alt={event.media[0].alternativeText || event.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                  <div 
+                    className="relative cursor-pointer group w-full h-full"
+                    onClick={() => event.media && setSelectedMedia(event.media[0])}
+                  >
+                    <img
+                      src={`http://localhost:1337${event.media[0].url}`}
+                      alt={event.media[0].alternativeText || event.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all pointer-events-none"></div>
+
+                  </div>
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                     <div className="flex items-center mb-2">
-                      {getEventTypeIcon(event.eventType)}
-                      <span className="ml-2 text-sm font-medium capitalize">
+                      <span className="text-sm font-medium capitalize">
                         {event.eventType}
                       </span>
                     </div>
-                    <h1 className="text-3xl font-bold mb-2">{event.name}</h1>
+                    <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 break-words leading-tight hyphens-auto overflow-hidden">{event.name}</h1>
                                           <div className="flex items-center space-x-4 text-sm">
                         <div className="flex items-center">
                           <Globe className="h-4 w-4 mr-1" />
@@ -355,7 +346,11 @@ export default function EventDetailsPage() {
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('events.mediaGallery')}</h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       {event.media.slice(1).map((media, index) => (
-                        <div key={index} className="relative group">
+                        <div 
+                          key={index} 
+                          className="relative group cursor-pointer"
+                          onClick={() => !media.mime?.startsWith('video/') && setSelectedMedia(media)}
+                        >
                           {media.mime?.startsWith('video/') ? (
                             <video
                               src={`http://localhost:1337${media.url}`}
@@ -363,11 +358,18 @@ export default function EventDetailsPage() {
                               controls
                             />
                           ) : (
-                            <img
-                              src={`http://localhost:1337${media.url}`}
-                              alt={media.alternativeText || `${event.name} - Media ${index + 2}`}
-                              className="w-full h-32 object-cover rounded-lg group-hover:opacity-75 transition-opacity"
-                            />
+                            <div className="relative w-full h-32">
+                              <img
+                                src={`http://localhost:1337${media.url}`}
+                                alt={media.alternativeText || `${event.name} - Media ${index + 2}`}
+                                className="w-full h-full object-cover rounded-lg group-hover:opacity-75 transition-opacity"
+                              />
+                              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                                <div className="bg-black bg-opacity-50 text-white p-2 rounded-full">
+                                  <ZoomIn className="h-4 w-4" />
+                                </div>
+                              </div>
+                            </div>
                           )}
                           <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-1 rounded">
                             {getMediaIcon(media.mime?.startsWith('video/') ? 'video' : 'image')}
@@ -462,19 +464,9 @@ export default function EventDetailsPage() {
                     {event.locations.map((location) => (
                       <div key={location.id} className="space-y-3">
                         <div className="flex items-center">
-                          <Building className="h-4 w-4 text-gray-400 mr-3" />
+                          <MapPin className="h-4 w-4 text-gray-400 mr-3" />
                           <span className="text-sm font-medium text-gray-900">{location.name}</span>
                         </div>
-                        {location.address && (
-                          <div className="flex items-start">
-                            <MapPin className="h-4 w-4 text-gray-400 mr-3 mt-0.5" />
-                            <div className="text-sm text-gray-600">
-                              <div>{location.address.street}</div>
-                              <div>{location.address.city}, {location.address.state} {location.address.zipCode}</div>
-                              <div>{location.address.country}</div>
-                            </div>
-                          </div>
-                        )}
                         {location.website && (
                           <div className="flex items-center">
                             <ExternalLink className="h-4 w-4 text-gray-400 mr-3" />
@@ -492,7 +484,7 @@ export default function EventDetailsPage() {
                           onClick={() => setSelectedLocation(location)}
                           className="inline-flex items-center text-sm text-primary-600 hover:text-primary-500 mt-2"
                         >
-                          <FileText className="h-4 w-4 mr-1" />
+                          <div className="h-4 w-4 mr-1" />
                           {t('events.viewLocationDetails')}
                         </button>
                       </div>
@@ -647,6 +639,48 @@ export default function EventDetailsPage() {
                       </a>
                     )}
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Media Modal */}
+      {selectedMedia && (
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" onClick={() => setSelectedMedia(null)}></div>
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                    <Image className="h-5 w-5 mr-2 text-primary-600" />
+                    {selectedMedia.alternativeText || 'Media'}
+                  </h3>
+                  <button
+                    onClick={() => setSelectedMedia(null)}
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+
+                <div className="flex justify-center">
+                  {selectedMedia.mime?.startsWith('video/') ? (
+                    <video
+                      src={`http://localhost:1337${selectedMedia.url}`}
+                      className="w-full max-h-96 object-contain rounded-lg"
+                      controls
+                      autoPlay
+                    />
+                  ) : (
+                    <img
+                      src={`http://localhost:1337${selectedMedia.url}`}
+                      alt={selectedMedia.alternativeText || 'Media'}
+                      className="w-full max-h-96 object-contain rounded-lg"
+                    />
+                  )}
                 </div>
               </div>
             </div>
