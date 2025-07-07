@@ -210,7 +210,7 @@ export default function DashboardPage() {
 
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
             <div className="flex flex-1 items-center">
-              <h1 className="text-2xl font-semibold text-gray-900">
+              <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-gray-900">
                 {t('dashboard.welcome')}, {user.firstName}!
               </h1>
             </div>
@@ -268,7 +268,7 @@ export default function DashboardPage() {
                           {event.maxCapacity} {t('events.capacity')}
                         </span>
                       </div>
-                      <h3 className="text-sm sm:text-base md:text-lg font-medium text-gray-900 mb-2 break-words leading-tight hyphens-auto overflow-hidden">{event.name}</h3>
+                      <h3 className="text-xs sm:text-sm md:text-base lg:text-lg font-medium text-gray-900 mb-2 break-words leading-tight hyphens-auto overflow-hidden">{event.name}</h3>
                       {event.description && (
                         <p className="text-sm text-gray-600 mb-4 line-clamp-2">
                           {event.description}
