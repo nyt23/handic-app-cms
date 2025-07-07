@@ -51,8 +51,6 @@ This will start both the backend and frontend simultaneously:
 
 ### Admin Credentials
 
-Credentials:
-
 - **Email**: nyt.young11@gmail.com
 - **Password**: sUcmok-paxbu7-dacwiz
 - **First Name**: Tingting
