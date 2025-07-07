@@ -6,6 +6,10 @@ A comprehensive Content Management System for accessibility-focused events and s
 
 HandicApp CMS is designed to help organizers and administrators manage accessible events, locations, and services for people with disabilities. The platform provides tools for managing events, locations, accessibility features, disability cards, companions, and more.
 
+## Demo Video
+
+
+
 
 ## How to Start
 
